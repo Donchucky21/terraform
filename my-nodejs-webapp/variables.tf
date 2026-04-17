@@ -37,3 +37,6 @@ variable "private_db_subnet_az2_cidr" {
   description = "Private DB subnet az2 CIDR Block"
   type        = string
 }
+
+variable "domain_name" {}
+variable "alternative_name" {}

@@ -21,3 +21,20 @@ module "security_groups" {
   source   = "../modules/security-groups"
   vpc_id   = module.vpc.vpc_id
 }
+
+module "acm" {
+  source           = "../modules/acm"
+  domain_name      = var.domain_name
+  alternative_name = var.alternative_name
+}
+
+module "alb" {
+  source                 = "../modules/alb"
+  alb_security_group_id  = module.security_groups.alb_security_group_id
+  vpc_id                 = module.vpc.vpc_id
+  public_subnet_az1_id   = module.vpc.public_subnet_az1_id
+  public_subnet_az2_id   = module.vpc.public_subnet_az2_id
+  certificate_arn        = module.acm.certificate_arn
+}
+
+
