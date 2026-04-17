@@ -6,7 +6,7 @@ provider "aws" {
 
 # Create VPC
 module "vpc" {
-  source                      = "../modules"
+  source                      = "../modules/vpc"
   project_name                = var.project_name
   vpc_cidr                    = var.vpc_cidr
   public_subnet_az1_cidr      = var.public_subnet_az1_cidr
