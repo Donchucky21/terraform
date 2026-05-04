@@ -25,7 +25,7 @@ variable "target_group_arn" {
 
 variable "health_check_grace_period" {
   type    = number
-  default = 300
+  default = 600
 }
 
 variable "launch_template_id" {
