@@ -9,13 +9,13 @@ resource "aws_acm_certificate" "acm_certificate" {
   }
 }
 
-# get details about a route 53 hosted zone
+#get details about a route 53 hosted zone
 data "aws_route53_zone" "route53_zone" {
-  name         = var.domain_name
+  name         = var.hosted_zone_name
   private_zone = false
 }
 
-# create a record set in route 53 for domain validatation
+#create a record set in route 53 for domain validatation
 resource "aws_route53_record" "route53_record" {
   for_each = {
     for dvo in aws_acm_certificate.acm_certificate.domain_validation_options : dvo.domain_name => {

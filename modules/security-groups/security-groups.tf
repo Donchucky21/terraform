@@ -8,6 +8,16 @@ resource "aws_security_group" "alb_sg" {
   }
 }
 
+resource "aws_security_group" "bastion_sg" {
+  name        = "bastion-sg"
+  description = "Security group for bastion host"
+  vpc_id      = var.vpc_id
+
+  tags = {
+    Name = "bastion-sg"
+  }
+}
+
 resource "aws_security_group" "app_sg" {
   name        = "app-security-group"
   description = "Security group for the app tier"

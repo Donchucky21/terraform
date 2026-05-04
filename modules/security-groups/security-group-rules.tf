@@ -30,6 +30,28 @@ resource "aws_vpc_security_group_ingress_rule" "app_from_alb" {
   ip_protocol                  = "tcp"
 }
 
+resource "aws_vpc_security_group_ingress_rule" "app_ssh_from_bastion" {
+  security_group_id            = aws_security_group.app_sg.id
+  referenced_security_group_id = aws_security_group.bastion_sg.id
+  from_port                    = 22
+  to_port                      = 22
+  ip_protocol                  = "tcp"
+}
+
+resource "aws_vpc_security_group_ingress_rule" "bastion_ssh_from_my_ip" {
+  security_group_id = aws_security_group.bastion_sg.id
+  cidr_ipv4         = var.my_ip
+  from_port         = 22
+  to_port           = 22
+  ip_protocol       = "tcp"
+}
+
+resource "aws_vpc_security_group_egress_rule" "bastion_outbound_all" {
+  security_group_id = aws_security_group.bastion_sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1"
+}
+
 resource "aws_vpc_security_group_egress_rule" "app_http_out" {
   security_group_id = aws_security_group.app_sg.id
   cidr_ipv4         = "0.0.0.0/0"

@@ -14,3 +14,8 @@ variable "db_port" {
   type        = number
   default     = 5432
 }
+
+variable "my_ip" {
+  description = "Your public IP address for SSH access to bastion"
+  type        = string
+}

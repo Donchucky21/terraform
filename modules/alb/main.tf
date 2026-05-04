@@ -15,19 +15,19 @@ resource "aws_lb" "application_load_balancer" {
 # create target group
 resource "aws_lb_target_group" "alb_target_group" {
   name        = "my-tg"
-  target_type = "ip"
-  port        = 80
+  target_type = "instance"
+  port        = var.app_port
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
 
   health_check {
     enabled             = true
-    interval            = 300
-    path                = "/"
-    timeout             = 60
+    interval            = 30
+    path                = var.health_check_path
+    timeout             = 5
     matcher             = 200
-    healthy_threshold   = 5
-    unhealthy_threshold = 5
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
   }
 
   lifecycle {
