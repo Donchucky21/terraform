@@ -12,7 +12,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: .
+        working-directory: ./my-nodejs-webapp
 
     steps:
       - name: Checkout repository
