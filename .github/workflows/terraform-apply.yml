@@ -31,6 +31,46 @@ jobs:
 
       - name: Terraform validate
         run: terraform validate
+        
+
+      - name: Create Terraform variables file
+        run: |
+          cat > terraform.auto.tfvars <<EOF
+          project_name                = "my-nodejs-webapp"
+          vpc_cidr                    = "10.0.0.0/16"
+          public_subnet_az1_cidr      = "10.0.1.0/24"
+          public_subnet_az2_cidr      = "10.0.2.0/24"
+          private_app_subnet_az1_cidr = "10.0.3.0/24"
+          private_app_subnet_az2_cidr = "10.0.4.0/24"
+          private_db_subnet_az1_cidr  = "10.0.5.0/24"
+          private_db_subnet_az2_cidr  = "10.0.6.0/24"
+          domain_name                 = "portal.starttechapp.uk"
+          alternative_name            = "*.portal.starttechapp.uk"
+          hosted_zone_name            = "starttechapp.uk"
+
+          my_ip = "81.111.74.195/32"
+
+          aws_region        = "eu-west-2"
+          ami_id            = "ami-09dbc7ce74870d573"
+          instance_type     = "t2.micro"
+          key_name          = "kp"
+          app_port          = 8080
+          health_check_path = "/api/health"
+
+
+          s3_bucket = "student-registration-portal"
+          s3_key    = "student-registration-portal.zip"
+
+          db_port     = "5432"
+          db_name     = "student_portal"
+          db_username = "postgres"
+        
+
+          app_min_size         = 1
+          app_desired_capacity = 1
+          app_max_size         = 3
+          EOF
+
 
       - name: Terraform apply
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -input=false
