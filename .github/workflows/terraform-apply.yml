@@ -64,6 +64,7 @@ jobs:
           db_port     = "5432"
           db_name     = "student_portal"
           db_username = "postgres"
+          db_password = "${{ secrets.DB_PASSWORD }}"
         
 
           app_min_size         = 1
